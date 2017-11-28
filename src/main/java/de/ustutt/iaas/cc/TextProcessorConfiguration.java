@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 public class TextProcessorConfiguration {
 
 	public static enum Mode {
-		local, remoteSingle, remoteMulti, queue
+		local, remoteSingle, remoteMulti, queue, queueError
 	};
 
 	public static enum MOM {

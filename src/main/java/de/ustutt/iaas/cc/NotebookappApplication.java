@@ -21,6 +21,7 @@ import de.ustutt.iaas.cc.core.INotesDB;
 import de.ustutt.iaas.cc.core.ITextProcessor;
 import de.ustutt.iaas.cc.core.LocalTextProcessor;
 import de.ustutt.iaas.cc.core.QueueTextProcessor;
+import de.ustutt.iaas.cc.core.QueueTextProcessorFlawed;
 import de.ustutt.iaas.cc.core.RemoteTextProcessor;
 import de.ustutt.iaas.cc.core.RemoteTextProcessorMulti;
 import de.ustutt.iaas.cc.core.SimpleNotebookDAO;
@@ -148,6 +149,12 @@ public class NotebookappApplication extends Application<NotebookappConfiguration
 					configuration.textProcessorConfiguration.requestQueueName,
 					configuration.textProcessorConfiguration.responseQueueName);
 			tp = new QueueTextProcessor(configuration.textProcessorConfiguration);
+			break;
+		case queueError:
+			logger.info("Using FLAWED queue text processor reading from {} and writing to {}",
+					configuration.textProcessorConfiguration.requestQueueName,
+					configuration.textProcessorConfiguration.responseQueueName);
+			tp = new QueueTextProcessorFlawed(configuration.textProcessorConfiguration);
 			break;
 		default:
 			logger.warn("Unknown or empty text processor mode ({}), defaulting to local",
